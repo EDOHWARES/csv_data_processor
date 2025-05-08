@@ -6,6 +6,7 @@ This is a simple command-line tool built in Rust that reads data from a CSV file
 
 ## 📁 Project Structure
 
+```bash
 csv_data_processor/
 ├── data.csv # CSV file containing data
 ├── src/
@@ -14,6 +15,7 @@ csv_data_processor/
 │ └── utility.rs # Logic to read and filter CSV
 ├── Cargo.toml # Rust project metadata and dependencies
 └── README.md # Project overview and instructions
+```
 
 
 ---
