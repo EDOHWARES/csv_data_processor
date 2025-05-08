@@ -65,5 +65,5 @@ cargo run city Lagos
 ### 🧑‍💻 Author
 
 ```bash
-Your Name – @EDOHWARES
+@EDOHWARES
 ```
