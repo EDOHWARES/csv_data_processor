@@ -1,39 +1,10 @@
-use serde::Deserialize;
-use std::env;
-use std::error::Error;
-use std::fs::File;
-
-#[derive(Debug, Deserialize)]
-struct Person {
-    name: String,
-    age: String,
-    city: String,
-}
-
-fn read_csv_and_filter(column: &str, value: &str) -> Result<(), Box<dyn Error>> {
-    let file = File::open("data.csv")?;
-    let mut rdr = csv::Reader::from_reader(file);
-
-    for result in rdr.deserialize() {
-        let record: Person = result?;
-
-        let is_match = match column {
-            "name" => record.name == value,
-            "age" => record.age == value,
-            "city" => record.city == value,
-            _ => false,
-        };
-
-        if is_match {
-            println!("{:?}", record);
-        }
-    }
-
-    Ok(())
-}
-
+use std::env; // provides access to env variables and CL args
+mod person;
+mod utility;
+use utility::read_csv_and_filter;
 fn main() {
     let args: Vec<String> = env::args().collect();
+    println!("{:?}", args);
 
     if args.len() != 3 {
         eprintln!("usage: cargo run <column> <value>");
