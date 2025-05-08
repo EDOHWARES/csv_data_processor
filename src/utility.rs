@@ -6,12 +6,15 @@ use crate::person::Person;
 pub fn read_csv_and_filter(
     column: &str,
     value: &str,
+    file_path: &str,
     output_path: Option<String>,
 ) -> Result<(), Box<dyn Error>> {
-    let file = File::open("data.csv")?;
+    let file = File::open(file_path)?;
     let mut rdr = csv::Reader::from_reader(file);
-
-    let mut matched_records: Vec<Person> = Vec::new();
+    let mut wtr = output_path
+        .as_ref()
+        .map(|path| csv::Writer::from_path(path))
+        .transpose()?; // `wtr` is mutable here
 
     for result in rdr.deserialize() {
         let record: Person = result?;
@@ -25,18 +28,15 @@ pub fn read_csv_and_filter(
 
         if is_match {
             println!("{:?}", record);
-            matched_records.push(record);
+            if let Some(writer) = wtr.as_mut() {
+                // Borrow `wtr` as mutable
+                writer.serialize(&record)?;
+            }
         }
     }
 
-    // Save to output file if provided
-    if let Some(path) = output_path {
-        let mut wtr = csv::Writer::from_path(path)?;
-        for record in matched_records {
-            wtr.serialize(record)?;
-        }
-        wtr.flush()?;
-        println!("Filtered result saved to file.");
+    if let Some(mut writer) = wtr {
+        writer.flush()?; // Flush the writer
     }
 
     Ok(())

@@ -45,31 +45,31 @@ Bob,25,Abuja
 Charlie,30,Kano
 ```
 
-### 2. Run the Program:
+
+## ⚙️ Usage:
+
+### 1. Basic Filtering (uses default data.csv);
 
 ```bash
 cargo run name Alice
 ```
 
-### 3. Usage:
+### 2. Custom Input File:
 
 ```bash
-cargo run <column> <value>
-```
-### Example:
-
-```bash
-cargo run city Lagos
+cargo run city Kano --file students.csv
 ```
 
-### 4. Filtering and Saving to File:
-```bash
-cargo run <column> <value> --output <filename.csv>
-```
+### 3. Save Filtered Results to a New File:
 
-### Example:
 ```bash
 cargo run city Lagos --output lagos.csv
+```
+
+### 4. Combine Input and Output:
+
+```bash
+cargo run age 25 --file people.csv --output age25.csv
 ```
 
 ---
