@@ -56,11 +56,23 @@ cargo run name Alice
 ```bash
 cargo run <column> <value>
 ```
-### 4. Example:
+### Example:
 
 ```bash
 cargo run city Lagos
 ```
+
+### 4. Filtering and Saving to File:
+```bash
+cargo run <column> <value> --output <filename.csv>
+```
+
+### Example:
+```bash
+cargo run city Lagos --output lagos.csv
+```
+
+---
 
 ### 🧑‍💻 Author
 
